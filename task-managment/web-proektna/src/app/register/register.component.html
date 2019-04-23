@@ -1,0 +1,49 @@
+<div id="menu">
+  <div class="row">
+    <div class="col-lg-2 text-right"><span id="logo"><i>Estrada</i></span></div>
+    <div class="col-lg-7"></div>
+    <div class="col-lg-3 text-center" id="btn-group">
+      <button routerLink="/login" class="btn btn-light">Log in</button>
+      <button routerLink="/register" class="btn btn-primary">Get Started</button>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div  class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4"><br/>
+      <div class="card">
+        <div class="card-header">Registration</div>
+        <div class="card-body">
+      <form (submit)="register()" class="form-group" [formGroup]="registerForm" >
+        <label for="username">Username</label>
+        <input class="form-control" name="username" type="text" id="username" formControlName="username" required>
+        <div *ngIf="registerForm.controls['username'].errors && registerForm.controls['username'].touched">
+          <div [hidden]="!registerForm.controls['username'].errors.required" class="alert alert-danger">Username is required</div>
+        </div>
+
+        <label for="password">Password</label>
+        <input class="form-control" name="password" type="password" id="password" formControlName="password" required>
+        <div *ngIf="registerForm.controls['password'].errors && registerForm.controls['password'].touched">
+          <div [hidden]="!registerForm.controls['password'].errors.required" class="alert alert-danger">Password is required</div>
+          <div [hidden]="!registerForm.controls['password'].errors.min" class="alert alert-danger">Minimum 7 letters</div>
+        </div>
+
+        <label for="email">Email</label>
+        <input class="form-control" name="email" type="email" id="email" formControlName="email" required>
+        <div *ngIf="registerForm.controls['email'].errors && registerForm.controls['email'].touched">
+          <div [hidden]="!registerForm.controls['email'].errors.required" class="alert alert-danger">Email is required</div>
+          <div [hidden]="!registerForm.controls['email'].errors.patternInvalid" class="alert alert-danger">Email is invalid</div>
+        </div>
+        <br/>
+        <div class="text-center">Have an account? <a href="#" routerLink="/login">Login!</a></div><br/>
+        <div class="text-center"><button [disabled]="registerForm.invalid" type="submit" class="btn btn-success" >Submit</button></div>
+        <br/>
+        <div class="alert alert-danger" *ngIf="errorAlert">{{errorAlert}}</div>
+      </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4"></div>
+  </div>
+</div>

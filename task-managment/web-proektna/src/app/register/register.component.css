@@ -1,0 +1,15 @@
+#menu{
+ background-color:  #404040;
+  color: white;
+  font-family: Times New Roman, serif;
+  -webkit-box-shadow:0px 1px 1px darkgrey;
+  -moz-box-shadow:0px 1px 1px darkgrey;
+  box-shadow:0px 1px 1px darkgrey;
+}
+#logo{
+  font-size: 40px;
+}
+#btn-group{
+  margin-top: 0.8%;
+}
+

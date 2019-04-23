@@ -1,0 +1,35 @@
+<div id="menu">
+  <div class="row">
+    <div class="col-lg-2 text-right"><span id="logo"><i>Estrada</i></span></div>
+    <div class="col-lg-7"></div>
+    <div class="col-lg-3 text-center" id="btn-group">
+      <button routerLink="/login" class="btn  btn-light">Log in</button>
+      <button routerLink="/register" class="btn btn-primary">Get Started</button>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4"><br/>
+      <div class="card">
+        <div class="card-header">Login</div>
+        <div class="card-body">
+      <form  (submit)="login()" class="form-group" [formGroup]="loginForm">
+        <label for="username">Username</label>
+        <input class="form-control" name="username" type="text" id="username" formControlName="username" required [(ngModel)]="credentials.username">
+
+
+        <label for="password">Password</label>
+        <input class="form-control" name="password" type="password" id="password" formControlName="password" required [(ngModel)]="credentials.password"><br/>
+        <div class="text-center">Don't have an account? <a href="#" routerLink="/register">Register</a> now!</div><br/>
+        <div class="text-center"><button type="submit" class="btn btn-success">Submit</button></div>
+      </form>
+      <div class="alert alert-danger" *ngIf="loginError">{{loginError}}</div>
+          <div class="panel-body">
+      </div>
+    </div>
+    <div class="col-lg-4">
+    </div>
+  </div>
+</div>

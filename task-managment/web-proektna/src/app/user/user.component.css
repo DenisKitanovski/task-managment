@@ -1,0 +1,138 @@
+#menu {
+  background-color: #404040;
+  font-family: Times New Roman, serif;
+  -webkit-box-shadow: 1px 1px 1px lightgrey;
+  -moz-box-shadow: 1px 1px 1px lightgrey;
+  box-shadow: 1px 1px 1px lightgrey;
+}
+
+#logo {
+  font-size: 40px;
+  color: white;
+}
+#logout {
+  text-decoration: none;
+  color: white;
+}
+
+#btn-group {
+  margin-top: 0.8%;
+}
+
+#left-menu {
+  background-color: #404040;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  -webkit-box-shadow: 1px 1px 1px lightgrey;
+  -moz-box-shadow: 1px 1px 1px lightgrey;
+  box-shadow: 1px 1px 1px lightgrey;
+}
+
+#btn-room, #room-name {
+  margin-top: 1%;
+}
+
+#my-rooms {
+  margin-top: 10%;
+  color: white;
+
+}
+#btn-room {
+  color:cornflowerblue;
+}
+#btn-room:hover {
+
+
+}
+
+.room-name:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  font-size: 20px;
+
+}
+
+.task-col {
+  height: 100%;
+  width: 300px;
+  margin: 0.4%;
+
+}
+
+#task-list {
+  margin-top: 1.5%;
+  margin-left: 17%;
+}
+
+#notSet, #inProgress, #done {
+  background-color: #F8F8F8;
+  -webkit-box-shadow: 2px 2px 1px lightgrey;
+  -moz-box-shadow: 2px 2px 1px lightgrey;
+  box-shadow: 2px 2px 1px lightgrey;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-top:3%;
+  list-style: none;
+
+}
+
+li, .task{
+  background-color: white;
+  -webkit-box-shadow: 2px 2px 2px lightgrey;
+  -moz-box-shadow: 2px 2px 2px lightgrey;
+  box-shadow: 2px 2px 2px lightgrey;
+  cursor: pointer;
+
+}
+li {
+  margin-bottom:3%;
+}
+
+a {
+  cursor: pointer;
+}
+hr {
+  width: 50%;
+
+}
+
+#btn-plus, #btn-minus {
+  border-radius: 1em;
+  border: 1px solid darkgrey;
+
+}
+
+.task-name {
+  font-size: 20px;
+}
+
+.task-delete-btn {
+  margin-left:70%;
+}
+
+.room-name {
+  font-size: 20px;
+overflow: hidden;
+}
+button {
+  margin:1%;
+}
+#username{
+  color:white;
+}
+.menu{
+  border-right: 1px solid white;
+  color:white;
+  margin-right:2%;
+  padding-right:3%;
+}
+.activities {
+  list-style: none;
+}
+.col-sort{
+  cursor: pointer;
+}
