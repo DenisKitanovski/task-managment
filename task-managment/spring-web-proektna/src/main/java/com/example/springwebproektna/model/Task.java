@@ -15,6 +15,8 @@ public class Task {
     private String channelId;
     private String progressBar;
     private String dueDate;
+    private String column;
+    private int position;
 
     public String getTaskName() {
         return taskName;
@@ -62,5 +64,21 @@ public class Task {
 
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public String getColumn() {
+        return column;
+    }
+
+    public void setColumn(String column) {
+        this.column = column;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }

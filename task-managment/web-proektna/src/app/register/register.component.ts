@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
   private createForm() {
     this.registerForm = new FormGroup({
       username: new FormControl('', Validators.required),
+      companyName: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required, Validators.min(7)]),
       email: new FormControl('', [Validators.required,
         this.patternValidator(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)])
@@ -40,7 +41,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.userService.registerUser(this.registerForm.controls['username'].value,
+    this.userService.registerUser(this.registerForm.controls['username'].value,this.registerForm.controls['companyName'].value,
       this.registerForm.controls['password'].value,
       this.registerForm.controls['email'].value)
       .subscribe(data => {

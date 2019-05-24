@@ -1,12 +1,16 @@
 package com.example.springwebproektna.controller;
 
+import com.example.springwebproektna.domains.DashboardId;
 import com.example.springwebproektna.domains.RoomDetail;
 import com.example.springwebproektna.domains.RoomId;
+import com.example.springwebproektna.model.Dashboard;
 import com.example.springwebproektna.model.Room;
 import com.example.springwebproektna.service.RoomService;
+import com.example.springwebproektna.service.RoomServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,23 +18,22 @@ import java.util.List;
 
 @RestController
 public class RoomController {
-    private RoomService roomService;
+    private RoomServiceImpl roomService;
 
 
     @Autowired
-    public RoomController(RoomService roomService) {
+    public RoomController(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }
 
     @PostMapping("/me/room/create")
-    //@PreAuthorize("hasRole('ROLE_USER')")
-    @ResponseStatus(HttpStatus.CREATED)
-    public RoomId createRoom(@RequestBody Room room){
+    public Room createRoom(@RequestBody Room room){
         return roomService.createRoom(room);
     }
 
-    @GetMapping("/me/room/all")
-    public List<RoomDetail> findAllRooms(){
-        return roomService.findAllRooms();
+    @PostMapping(path = "/me/room/all")
+    public List<Room> findAllRooms(@RequestBody DashboardId dashboardId){
+        return roomService.findAllRooms(dashboardId);
     }
+
 }

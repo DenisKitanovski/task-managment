@@ -35,6 +35,12 @@
           <div [hidden]="!registerForm.controls['email'].errors.required" class="alert alert-danger">Email is required</div>
           <div [hidden]="!registerForm.controls['email'].errors.patternInvalid" class="alert alert-danger">Email is invalid</div>
         </div>
+
+        <label for="companyName">Company name</label>
+        <input class="form-control" name="companyName" type="text" id="companyName" formControlName="companyName" required>
+        <div *ngIf="registerForm.controls['companyName'].errors && registerForm.controls['companyName'].touched">
+          <div [hidden]="!registerForm.controls['companyName'].errors.required" class="alert alert-danger">Company name is required</div>
+        </div>
         <br/>
         <div class="text-center">Have an account? <a href="#" routerLink="/login">Login!</a></div><br/>
         <div class="text-center"><button [disabled]="registerForm.invalid" type="submit" class="btn btn-success" >Submit</button></div>

@@ -7,7 +7,7 @@ import com.example.springwebproektna.model.Room;
 import java.util.List;
 
 public interface RoomService {
-    RoomId createRoom(Room room);
+    Room createRoom(Room room);
 
     List<RoomDetail> getCurrentUserRooms();
 

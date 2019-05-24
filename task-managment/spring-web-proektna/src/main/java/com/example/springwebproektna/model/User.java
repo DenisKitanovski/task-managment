@@ -20,6 +20,8 @@ public class User implements UserDetails{
 
     private String email;
 
+    private String dashboardId;
+
     private Role roles;
 
     public User() {
@@ -115,5 +117,13 @@ public class User implements UserDetails{
 
     public void setRoles(Role roles) {
         this.roles = roles;
+    }
+
+    public String getDashboardId() {
+        return dashboardId;
+    }
+
+    public void setDashboardId(String dashboardId) {
+        this.dashboardId = dashboardId;
     }
 }

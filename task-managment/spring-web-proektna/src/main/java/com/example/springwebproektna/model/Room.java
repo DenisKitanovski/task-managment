@@ -12,8 +12,7 @@ public class Room {
 
     private String name;
 
-    @DBRef
-    private User user;
+    private String dashboardId;
 
     @DBRef
     private List<Message> messages = new ArrayList<>();
@@ -34,19 +33,20 @@ public class Room {
         this.name = name;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public List<Message> getMessages() {
         return messages;
     }
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+
+
+    public String getDashboardId() {
+        return dashboardId;
+    }
+
+    public void setDashboardId(String dashboardId) {
+        this.dashboardId = dashboardId;
     }
 }

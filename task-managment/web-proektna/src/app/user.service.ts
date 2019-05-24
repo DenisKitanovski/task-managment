@@ -27,12 +27,13 @@ export class UserService {
     return this.http.post(this.userURL + 'login', {'username': username, 'password': password});
   }
 
-  registerUser(username, password, email): Observable<any> {
+  registerUser(username, companyName, password, email): Observable<any> {
 
     return this.http.post(this.userURL + 'sign-up', {
       'username': username,
       'password': password,
-      'email': email
+      'email': email,
+      'companyName': companyName
     });
   }
 
@@ -44,11 +45,16 @@ export class UserService {
 
   createRoom(roomName: string): Observable<any> {
     this.createActivity(' Created Room', roomName);
-    return this.http.post(this.userURL + 'me/room/create', {'name': roomName});
+    return this.http.post(this.userURL + 'me/room/create', {
+      'name': roomName,
+      'dashboardId': localStorage.getItem('dashboardId')});
   }
 
   findAllRooms(): Observable<any> {
-    return this.http.get(this.userURL + 'me/room/all');
+    const dashboardId = localStorage.getItem('dashboardId');
+    return this.http.post(this.userURL + 'me/room/all', {
+      'dashboardId': dashboardId
+    });
   }
 
   createTask(taskName, taskDescription, channelId, dueDate): Observable<any> {
@@ -59,7 +65,8 @@ export class UserService {
       'taskDescription': taskDescription,
       'channelId': channelId,
       'progressBar': '0',
-      'dueDate': dueDate
+      'dueDate': dueDate,
+      'column': 'notSet'
     });
   }
 
@@ -67,13 +74,23 @@ export class UserService {
     return this.http.post(this.userURL + 'channel/' + channelId, {});
   }
 
+  changeColumnAndTaskPosition(id, oldColumn, oldPosition, newColumn, newPosition): Observable<any> {
+    return this.http.post(this.userURL + 'change/column/position', {
+      'id': id,
+      'oldColumn': oldColumn,
+      'oldPosition': oldPosition,
+      'newColumn': newColumn,
+      'newPosition': 'newPosition',
+    });
+  }
+
   minusBtnClicked(id: string, progressBar: string, taskName: string): Observable<any> {
-    // this.createActivity(' Decreased 10% On Task', taskName);
+    this.createActivity(' Decreased 10% On Task', taskName);
     return this.http.post(this.userURL + 'progress', {'id': id, 'progressBar': progressBar});
   }
 
   plusBtnClicked(id: string, progressBar: string, taskName: string): Observable<any> {
-    // this.createActivity(' Increased 10% On Task', taskName);
+     this.createActivity(' Increased 10% On Task', taskName);
     return this.http.post(this.userURL + 'progress', {'id': id, 'progressBar': progressBar});
   }
 
@@ -87,7 +104,7 @@ export class UserService {
   }
 
   createActivity(action: string, text: string) {
-    this.username = sessionStorage.getItem('username');
+    this.username = localStorage.getItem('username');
 
     console.log(this.username);
     console.log(action);

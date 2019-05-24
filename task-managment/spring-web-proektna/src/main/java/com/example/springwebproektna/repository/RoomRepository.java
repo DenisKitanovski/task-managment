@@ -8,9 +8,10 @@ import java.util.Optional;
 
 public interface RoomRepository extends MongoRepository<Room,String> {
 
-    List<Room> findByUserId(String id);
+   // List<Room> findByUserId(String id);
 
-    @Override
-    Optional<Room> findById(String id);
+    List<Room> findAll();
+
+    List<Room> findAllByDashboardId(String id);
 
 }

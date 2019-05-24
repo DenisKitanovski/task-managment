@@ -1,0 +1,77 @@
+.task-col {
+  height: 100%;
+  width: 200px;
+  margin: 0.4%;
+}
+
+
+#notSet, #inProgress, #done {
+  background-color: #F8F8F8;
+  -webkit-box-shadow: 2px 2px 1px lightgrey;
+  -moz-box-shadow: 2px 2px 1px lightgrey;
+  box-shadow: 2px 2px 1px lightgrey;
+  padding: 20px 40px;
+  list-style: none;
+
+}
+hr {
+  width: 50%;
+
+}
+.col-sort{
+  cursor: pointer;
+  float: right;
+}
+.task{
+  background-color: white;
+  -webkit-box-shadow: 2px 2px 2px lightgrey;
+  -moz-box-shadow: 2px 2px 2px lightgrey;
+  box-shadow: 2px 2px 2px lightgrey;
+  cursor: pointer;
+  margin-bottom:3%;
+
+}
+.task-name {
+  font-size: 20px;
+}
+
+.task-delete-btn {
+  position: absolute;
+  top:0;
+  right: 0;
+}
+
+#btn-plus, #btn-minus {
+  border-radius: 1em;
+  border: 1px solid darkgrey;
+
+}
+
+
+/* in-flight clone */
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  pointer-events: none;
+}
+/* high-performance display:none; helper */
+.gu-hide {
+  left: -9999px !important;
+}
+/* added to mirrorContainer (default = body) while dragging */
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+/* added to the source element while its mirror is dragged */
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}

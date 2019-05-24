@@ -14,13 +14,17 @@ import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './core/AuthGuard';
 import { RegisterComponent } from './register/register.component';
 import { SuccessComponent } from './success/success.component';
+import { TaskComponent } from './task/task.component';
+import {DragulaModule} from "ng2-dragula";
 
 const ROUTES: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'login', component: LoginComponent, },
-  {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'success', component: SuccessComponent}
+  {path: 'success', component: SuccessComponent},
+  {path: 'user', component: UserComponent, children: [
+    {path: ':id', component: TaskComponent}
+  ]}
 
 ];
 
@@ -31,7 +35,8 @@ const ROUTES: Routes = [
     UserComponent,
     LoginComponent,
     RegisterComponent,
-    SuccessComponent
+    SuccessComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
@@ -39,13 +44,15 @@ const ROUTES: Routes = [
     RouterModule.forRoot(ROUTES),
     FormsModule,
     ReactiveFormsModule,
+    DragulaModule.forRoot()
   ],
   providers: [UserService, AuthGuard, TokenStorage, {
     provide: HTTP_INTERCEPTORS,
     useClass: Interceptor,
     multi: true
   }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [RouterModule]
 })
 export class AppModule {
 }

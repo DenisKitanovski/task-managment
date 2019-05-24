@@ -1,19 +1,7 @@
-<div id="menu" xmlns="">
-  <div class="row">
-    <div class="col-lg-2 text-right"><span id="logo"><i>Estrada</i></span></div>
-    <div class="col-lg-7"></div>
-    <div class="col-lg-3 text-center" id="btn-group">
-      <a class="menu" id="username" (click)="profile()" data-toggle="modal" data-target="#profile">{{username}}</a>
-      <a class="menu" id="logout" (click)="logout()">Logout</a>
-      <button class="btn btn-primary" data-toggle="modal" data-target="#activities" (click)="loadActivities()">
-        Activity
-      </button>
-    </div>
-  </div>
-</div>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-2" id="left-menu">
+
+<div class="container-box">
+    <div id="left-menu">
+      <h3 id="logo"><i>{{companyName}}</i></h3>
       <div><input [(ngModel)]="name" id="room-name" type="text" class="form-control"></div>
       <div class="text-center">
         <a (click)="createRoom()" id="btn-room">Add New Room</a>
@@ -21,11 +9,11 @@
       </div>
       <div *ngIf="roomExistsAlert" class="alert alert-danger">This room name exists</div>
       <div id="my-rooms">
-        <h4 class="text-center"><i>Company Rooms</i></h4>
+        <h4 id="rooms" ><i>Rooms</i></h4>
         <div *ngIf="addRoom">
-          <div *ngFor="let room of addRoom">
+          <div *ngFor="let room of addRoom" [routerLink]="['/user', room.id]">
             <i>
-              <div id={{room.id}} class="text-center room-name" (click)="getRoomMessages(room.id)"
+              <div id={{room.id}} class="room-name"
                    (click)="listClick($event, room.id)">{{room.name}}
               </div>
             </i>
@@ -33,106 +21,15 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-10" id="task-list">
-      <div class="row" id="col-sort">
-        <div class="col-lg-4 text-center">
-          <h3 class="text-center"><i>Not Set</i></h3>
-          <hr/>
-          <a href="#" class="text-info" id="buy" data-toggle="modal" data-target="#myModal">Add New Task</a>
-          <ul class="text-center" id="notSet">
-            <li *ngFor="let task of tasks; let i=index" [hidden]="task.show">
-              <div class="task">
-                <div class="row">
-                  <div class="col-lg-4"></div>
-                  <div class="col-lg-4 text-center"><span class="task-name">{{task.taskName}}</span></div>
-                  <div class="col-lg-4">
-                    <button (click)="deleteByTaskId(task.id, i, task.taskName)" class="btn btn-sm task-delete-btn">X
-                    </button>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-12 text-center">
-                    <hr/>
-                    <div class="task-description"><i>{{task.taskDescription}}</i></div>
-                    <div class="due-date">Due: {{task.dueDate}}</div>
-                  </div>
-                </div>
-                <br/>
-                <div class="row">
-
-                  <div class="col-lg-3 text-right">
-                    <span id="btn-minus" class="btn-sm" (click)="minusBtnClicked(task.id, task.taskName)">-</span>
-
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="progress" id="progress">
-                  <span [id]="task.id" class="progress-bar text-center progressBar" role="progressbar" aria-valuemin="0"
-                        aria-valuemax="100" [style.width.%]="task.progressBar">
-                    {{task.progressBar}}%
-                  </span>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 text-left">
-                    <span id="btn-plus" class=" btn-sm" (click)="plusBtnClicked(task.id, task.taskName)">+</span>
-                  </div>
-
-                </div>
-                <br/>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="col-lg-4">
-          <h3 class="text-center"><i>In Progress</i></h3>
-          <hr/>
-          <br/>
-          <ul class="text-center" id="inProgress">
-
-          </ul>
-
-
-        </div>
-        <div class="col-lg-4">
-          <h3 class="text-center"><i>Done</i></h3>
-          <hr/>
-          <br/>
-          <ul class="text-center" id="done">
-
-          </ul>
-
-        </div>
+    <div id="task-column-container">
+      <div class="text-right" id="btn-group-menu">
+        <a class="menu" id="username" data-toggle="modal" data-target="#profile">{{username}}</a>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#activities" (click)="loadActivities()">Activity</button>
+        <a class="btn btn-light" (click)="logout()">Logout</a>
       </div>
+      <router-outlet></router-outlet>
+
     </div>
-  </div>
-</div>
-<div class="modal fade " id="myModal" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header" id="mHeader">
-        <div><h3>Create New Task</h3></div>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="taskName">Task Name</label>
-          <input type="text" class="form-control" id="taskName" [(ngModel)]="taskName">
-        </div>
-        <div class="form-group">
-          <label for="taskDescription">Task Description</label>
-          <input type="text" class="form-control" id="taskDescription" [(ngModel)]="taskDescription">
-        </div>
-        <div class="form-group">
-          <label for="dueDate">Due Date</label>
-          <input type="date" class="form-control" id="dueDate" [(ngModel)]="dueDate">
-
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn btn-danger " data-dismiss="modal">Cancel</button>
-        <button class="btn btn-success" (click)="createTask()" data-dismiss="modal">Create</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div class="modal fade" id="activities" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);">

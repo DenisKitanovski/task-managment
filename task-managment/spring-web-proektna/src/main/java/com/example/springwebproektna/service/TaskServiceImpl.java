@@ -1,5 +1,6 @@
 package com.example.springwebproektna.service;
 
+import com.example.springwebproektna.domains.NewColumnAndPos;
 import com.example.springwebproektna.model.Task;
 import com.example.springwebproektna.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TaskServiceImpl implements TaskService {
+public class TaskServiceImpl{
     private TaskRepository taskRepository;
 
     @Autowired
@@ -16,22 +17,31 @@ public class TaskServiceImpl implements TaskService {
         this.taskRepository = taskRepository;
     }
 
-    @Override
+
     public Task saveTask(Task task) {
+     //   int count = Math.toIntExact(taskRepository.countByColumnAndChannelId(task.getColumn(), task.getChannelId()));
+     //   task.setPosition(count);
         return taskRepository.save(task);
     }
 
-    @Override
-    public List<Task> findByChannelId(String id) {
-        return taskRepository.findByChannelId(id);
+
+    public List<Task> findAllByChannelId(String id) {
+        return taskRepository.findAllByChannelId(id);
     }
 
-    @Override
+
     public Task findById(String id) {
         return taskRepository.findById(id).get();
     }
 
-    @Override
+    public Task changeColumnAndTaskPosition(NewColumnAndPos newColumnAndPos) {
+        Task task = taskRepository.findById(newColumnAndPos.getId()).get();
+        task.setColumn(newColumnAndPos.getNewColumn());
+       // task.setPosition(newColumnAndPos.getNewPosition());
+        return taskRepository.save(task);
+    }
+
+
     public void deleteByTaskId(String id) {
         taskRepository.deleteById(id);
     }

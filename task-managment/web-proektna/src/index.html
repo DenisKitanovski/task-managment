@@ -17,35 +17,7 @@
 </head>
 <body>
 <script>
-  $(document).ready(function () {
-    console.log('jquery!!!');
-    $("#col-sort").sortable();
-    $("#inProgress").sortable({
-      connectWith: "#notSet, #done",
-      update:function(event, ui){
-       // console.log($(this).children().attr("task-name"));
-       // $(this).children().each(function(){var o=$(this).attr('task-name');if (o) console.log(o) })
-      }
-    });
-    $("#notSet").sortable({
-      connectWith: "#done, #inProgress"
-    });
-    $("#done").sortable({
-      connectWith: "#notSet, #inProgress"
-    });
 
-   /* $(document).ready(function () {
-      $('#notSet').on('sortreceive', function (event, ui) {
-
-      });
-      $('#inProgress').on('sortreceive', function (event, ui) {
-
-      });
-      $('#done').on('sortreceive', function (event, ui) {
-
-      });
-    });*/
-  });
 </script>
 <app-root></app-root>
 </body>

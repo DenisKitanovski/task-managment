@@ -5,6 +5,7 @@ public class RegistrationForm {
     private String username;
     private String password;
     private String email;
+    private String companyName;
 
     public String getUsername() {
         return username;
@@ -28,6 +29,14 @@ public class RegistrationForm {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }
 

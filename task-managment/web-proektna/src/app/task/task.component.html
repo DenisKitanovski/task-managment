@@ -1,0 +1,184 @@
+<div class="row" id="col-sort">
+  <div class="col-lg-4 text-center">
+    <h3 class="text-center"><i>Not Set</i></h3>
+    <hr/>
+    <a href="#" class="text-info" id="buy" data-toggle="modal" data-target="#myModal">Add New Task</a>
+
+    <div dragula="task" class="text-center" id="notSet">
+      <div id="{{task.id}}" *ngFor="let task of tasks; let i=index">
+        <div *ngIf="task.column === 'notSet'">
+        <div class="task">
+          <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 text-center"><span class="task-name">{{task.taskName}}</span></div>
+            <div class="col-lg-4">
+              <button (click)="deleteByTaskId(task.id, i, task.taskName)" class="btn btn-sm task-delete-btn">X
+              </button>
+            </div>
+          </div>
+          <div >
+            <div class="text-center">
+              <hr class=""/>
+              <div class="task-description"><i>{{task.taskDescription}}</i></div>
+              <div class="due-date">Due: {{task.dueDate}}</div>
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+
+            <div class="col-lg-3 text-right">
+              <span id="btn-minus" class="btn-sm" (click)="minusBtnClicked(task.id, task.taskName)">-</span>
+
+            </div>
+            <div class="col-lg-6">
+              <div class="progress" id="progress">
+                  <span [id]="task.id" class="progress-bar text-center progressBar" role="progressbar" aria-valuemin="0"
+                        aria-valuemax="100" [style.width.%]="task.progressBar">
+                    {{task.progressBar}}%
+                  </span>
+              </div>
+            </div>
+            <div class="col-lg-3 text-left">
+              <span id="btn-plus" class=" btn-sm" (click)="plusBtnClicked(task.id, task.taskName)">+</span>
+            </div>
+
+          </div>
+          <br/>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <h3 class="text-center"><i>In Progress</i></h3>
+    <hr/>
+    <br/>
+    <div dragula="task" class="text-center" id="inProgress">
+      <div id="{{task.id}}" *ngFor="let task of tasks; let i=index">
+        <div *ngIf="task.column === 'inProgress'">
+          <div class="task">
+            <div class="row">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-4 text-center"><span class="task-name">{{task.taskName}}</span></div>
+              <div class="col-lg-4">
+                <button (click)="deleteByTaskId(task.id, i, task.taskName)" class="btn btn-sm task-delete-btn">X
+                </button>
+              </div>
+            </div>
+            <div >
+              <div class="text-center">
+                <hr class=""/>
+                <div class="task-description"><i>{{task.taskDescription}}</i></div>
+                <div class="due-date">Due: {{task.dueDate}}</div>
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+
+              <div class="col-lg-3 text-right">
+                <span id="btn-minus" class="btn-sm" (click)="minusBtnClicked(task.id, task.taskName)">-</span>
+
+              </div>
+              <div class="col-lg-6">
+                <div class="progress" id="progress">
+                  <span [id]="task.id" class="progress-bar text-center progressBar" role="progressbar" aria-valuemin="0"
+                        aria-valuemax="100" [style.width.%]="task.progressBar">
+                    {{task.progressBar}}%
+                  </span>
+                </div>
+              </div>
+              <div class="col-lg-3 text-left">
+                <span id="btn-plus" class=" btn-sm" (click)="plusBtnClicked(task.id, task.taskName)">+</span>
+              </div>
+
+            </div>
+            <br/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="col-lg-4">
+    <h3 class="text-center"><i>Done</i></h3>
+    <hr/>
+    <br/>
+    <div dragula="task" class="text-center" id="done">
+      <div id="{{task.id}}" *ngFor="let task of tasks; let i=index">
+        <div *ngIf="task.column === 'done'">
+          <div class="task">
+            <div class="row">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-4 text-center"><span class="task-name">{{task.taskName}}</span></div>
+              <div class="col-lg-4">
+                <button (click)="deleteByTaskId(task.id, i, task.taskName)" class="btn btn-sm task-delete-btn">X
+                </button>
+              </div>
+            </div>
+            <div >
+              <div class="text-center">
+                <hr class=""/>
+                <div class="task-description"><i>{{task.taskDescription}}</i></div>
+                <div class="due-date">Due: {{task.dueDate}}</div>
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+
+              <div class="col-lg-3 text-right">
+                <span id="btn-minus" class="btn-sm" (click)="minusBtnClicked(task.id, task.taskName)">-</span>
+
+              </div>
+              <div class="col-lg-6">
+                <div class="progress" id="progress">
+                  <span [id]="task.id" class="progress-bar text-center progressBar" role="progressbar" aria-valuemin="0"
+                        aria-valuemax="100" [style.width.%]="task.progressBar">
+                    {{task.progressBar}}%
+                  </span>
+                </div>
+              </div>
+              <div class="col-lg-3 text-left">
+                <span id="btn-plus" class=" btn-sm" (click)="plusBtnClicked(task.id, task.taskName)">+</span>
+              </div>
+
+            </div>
+            <br/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div  tabindex="-1"  class="modal fade " id="myModal" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" id="mHeader">
+        <div><h3>Create New Task</h3></div>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="taskName">Task Name</label>
+          <input type="text" class="form-control" id="taskName" [(ngModel)]="taskName">
+        </div>
+        <div class="form-group">
+          <label for="taskDescription">Task Description</label>
+          <input type="text" class="form-control" id="taskDescription" [(ngModel)]="taskDescription">
+        </div>
+        <div class="form-group">
+          <label for="dueDate">Due Date</label>
+          <input type="date" class="form-control" id="dueDate" [(ngModel)]="dueDate">
+
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-danger " data-dismiss="modal">Cancel</button>
+        <button class="btn btn-success" (click)="createTask()" data-dismiss="modal">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
