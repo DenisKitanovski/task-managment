@@ -23,5 +23,10 @@ public class SecurityUtils {
         }
         return userName;
     }
+
+    public Authentication getUser() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return securityContext.getAuthentication();
+    }
 }
 

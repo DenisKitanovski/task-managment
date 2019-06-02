@@ -7,6 +7,8 @@ import {Progress} from "../model/Progress";
 import {Task} from "../model/Task";
 import {DragulaService} from "ng2-dragula";
 import {Subscription} from "rxjs/Subscription";
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
 
 @Component({
   selector: 'app-task',
@@ -28,32 +30,35 @@ export class TaskComponent implements OnInit {
   subs = new Subscription();
   oldPosition: string;
   oldColumn: string;
-
+  serverUrl = 'http://localhost:8081/socket';
+  stompClient: any;
   constructor(private router: Router, private route: ActivatedRoute, private userService: UserService,
-              private token: TokenStorage, private sanitizer: DomSanitizer,  private dragulaService: DragulaService) {
+              private token: TokenStorage, private sanitizer: DomSanitizer,  private dragulaService: DragulaService, private tokenStorage: TokenStorage) {
 
     this.subs.add(dragulaService.drag('task').subscribe((value) => {
         this.oldPosition = this.getElementIndex(value.el);
         this.oldColumn = value.el.parentElement.id;
-        console.log(this.oldPosition);
-        console.log(value.el.parentElement.id);
+        //console.log(this.oldPosition);
+        //console.log(value.el.parentElement.id);
       })
     );
 
     this.subs.add(dragulaService.drop('task').subscribe((value) => {
 
-      console.log(value.el.parentElement.id);
+     // console.log(value.el.parentElement.id);
       const newPosition = this.getElementIndex(value.el);
       const newColumn = value.el.parentElement.id;
       const id = value.el.id;
-      console.log(newPosition);
-      console.log(value.el.parentElement.id);
-      console.log(value.el.id);
+     // console.log(newPosition);
+      //console.log(value.el.parentElement.id);
+      //console.log(value.el.id);
 
-     this.userService.changeColumnAndTaskPosition(id, this.oldColumn, this.oldPosition, newColumn, newPosition).subscribe(value => {
+      this.sendTask(id, this.oldColumn, this.oldPosition, newColumn, newPosition);
+    /* this.userService.changeColumnAndTaskPosition(id, this.oldColumn, this.oldPosition, newColumn, newPosition).subscribe(value => {
 
-      });
+      });*/
     }));
+
   }
   getElementIndex(el) {
     return [].slice.call(el.parentElement.children).indexOf(el);
@@ -63,9 +68,45 @@ export class TaskComponent implements OnInit {
     this.username = sessionStorage.getItem('username');
     this.route.paramMap.subscribe(params => {
       this.roomId = params.get('id');
-      console.log(this.roomId);
       this.findAllTasks();
+
+      this.initializeWebSocketConnection(this.roomId);
     });
+
+  }
+
+  initializeWebSocketConnection(roomId) {
+    const currentUser = this.tokenStorage.getToken();
+    let ws = new SockJS(this.serverUrl);
+    this.stompClient = Stomp.over(ws);
+    let that = this;
+    this.stompClient.connect( {}, function(frame) {
+      that.stompClient.subscribe("/chat/" + roomId, (message) => {
+        if(message.body) {
+         // console.log('websocket in room: ' + JSON.stringify(message.body));
+          const newColumnAndPosition = JSON.parse(message.body);
+
+          that.tasks.map(task => {
+            if (task.id === newColumnAndPosition['id']) {
+              task.column = newColumnAndPosition['newColumn'];
+              console.log(task);
+            }
+          });
+        }
+      });
+    });
+  }
+
+  sendTask(id, oldColumn, oldPosition, newColumn, newPosition){
+    this.stompClient.send("/app/task/" + this.roomId, {},
+      JSON.stringify({
+      'id': id,
+      'oldColumn': oldColumn,
+      'oldPosition': oldPosition,
+      'newColumn': newColumn,
+      'newPosition': newPosition
+    })
+    );
   }
 
  /* getRoomMessages(roomId: string) {
@@ -77,11 +118,11 @@ export class TaskComponent implements OnInit {
   }*/
 
   createTask() {
-    console.log(this.taskName + '' + this.taskDescription + ' ' + this.roomId);
+   // console.log(this.taskName + '' + this.taskDescription + ' ' + this.roomId);
     if (this.taskName) {
       this.userService.createTask(this.taskName, this.taskDescription, this.roomId, this.dueDate).subscribe(
         data => {
-          console.log(data);
+         // console.log(data);
           const date = data.dueDate.split('-');
           this.formatDate = date[2] + '/' + date[1] + '/' + date[0];
           this.tasks.push(new Task(data.id, data.taskName, data.taskDescription, this.roomId, data.progressBar, this.formatDate, data.column, data.position));
@@ -97,7 +138,7 @@ export class TaskComponent implements OnInit {
     this.userService.findAllTasks(this.roomId).subscribe(
       data => {
         this.tasks.length = 0;
-         console.log(data);
+       //  console.log(data);
         for (const t of data) {
           const date = t.dueDate.split('-');
           this.formatDate = date[2] + '/' + date[1] + '/' + date[0];
@@ -157,7 +198,7 @@ export class TaskComponent implements OnInit {
     this.tasks.splice(+index, 1);
     this.userService.deleteByTaskId(id, deletedTaskName).subscribe(
       data => {
-        console.log(data);
+      //  console.log(data);
         // this.findAllTasks();
       }
     );

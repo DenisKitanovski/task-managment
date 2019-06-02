@@ -1,10 +1,17 @@
 package com.example.springwebproektna.domains;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class NewColumnAndPos {
+    @JsonProperty
     private String id;
+    @JsonProperty
     private String oldColumn;
+    @JsonProperty
     private String oldPosition;
+    @JsonProperty
     private String newColumn;
+    @JsonProperty
     private String newPosition;
 
     public String getOldColumn() {
